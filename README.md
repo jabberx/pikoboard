@@ -1,5 +1,21 @@
 # pikoboard
-pikoboard if fat-free nanoboard (distributed imageboard)
+pikoboard if fat-free nanoboard (distributed imageboard).
+
+By fat-free I mean it lacks all that crazy stuff that was added to nanoboard making it overburdened and not very effective. 
+
+Nanoboard retranslation is poor due to image embedding and PNG-LSB containers huge size and small capacity. Nanoboard JS features and user interface make the code complex and ugly. PNG-LSB and posts packing algorithm in Nanoboard is also extremely insane and hard to reproduce. 
+
+They removed thread hash from a post forcing any developer to dive into recursive shit, making programs slow and complex. 
+
+They added BitMessage transport which requires users online, is way too expensive for the CPU and gives only 28 days max life for the post (compared to relatively long life of slow imageboard threads), also it forces two http daemons to be running speaking with each other using JSON API - double crazyness.
+
+I am the original nanoboard ideator (and first client (early 2014) creator). Back then we had thread hashes in each post, external (not embedded) images. As for containers there was no decisions ready, I considered PNG-7z containers but did not included them, I was forced to leave the project due to life circumstances. 
+
+Now I see that nanoboard is back but damaged, cursed and fucked up. I want to resurrect my original vision in a new project but cannot use Nanoboard name anymore because it was blackened. I would call it pikoboard.
+
+To be honest I borrowed some code from Nanoboard (aggregator - named it crawler).
+
+This repo holds a simple tool with simple responsibilities. It is as small as possible and yet brings pikoboard to the life and makes it fully usable. I will add bootstrap thread urls into places.txt soon (need to test code for bugs first).
 
 ## Key differences from nanoboard
 * no js at all (yet), html/css only
