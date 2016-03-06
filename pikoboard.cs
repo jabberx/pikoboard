@@ -421,7 +421,7 @@ spoiler:hover { background-color: #ddd; }
       sb.Append(head);
       sb.Append("<body>");
       foreach (var p in posts) sb.Append(wrap_post(p));
-      sb.Append("<textarea>thread="+thread+"\nenter your message...\nand save this as post.txt and feed to the app</textarea>");
+      sb.Append("<textarea>thread="+thread+"\nenter your message... >>hash references the post within a thread, >>>hash - thread\nand save this as post.txt and feed to the app</textarea>");
       sb.Append("</body></html>");
       utils.write(app.html_dir + app.slash + thread + ".html", sb.ToString().bytes());
     }
@@ -488,7 +488,7 @@ spoiler:hover { background-color: #ddd; }
         Console.WriteLine("   result will be in /" + upload_dir);
         Console.WriteLine("pikoboard any_file   create post template with this file referenced");
         Console.WriteLine("pikoboard       create template of post - post.txt and show this help");
-        File.WriteAllText(posttxt, "thread=\r\n/b/\r\nop message");
+        File.WriteAllText(posttxt, "thread=\r\nmessage");
         return;
       }
       if (args.Length == 1 && args[0] == "-a") {
