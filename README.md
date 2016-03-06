@@ -13,9 +13,9 @@ I am the original nanoboard ideator (and first client (early 2014) creator). Bac
 
 Now I see that nanoboard is back but damaged, cursed and fucked up. I want to resurrect my original vision in a new project but cannot use Nanoboard name anymore because it was blackened. I would call it pikoboard.
 
-To be honest I borrowed some code from Nanoboard (aggregator - named it crawler).
+To be honest I borrowed some code from Nanoboard (aggregator - named it crawler, nano.css file).
 
-This repo holds a simple tool with simple responsibilities. It is as small as possible and yet brings pikoboard to the life and makes it fully usable. I will add bootstrap thread urls into places.txt soon (need to test code for bugs first).
+This repo holds a simple tool with simple responsibilities. It's not so 'cool' as present nanoboard 'clients' but at least you understand what's going on underneath. It is as small as possible and yet brings pikoboard to the life and makes it fully usable. I will add bootstrap thread urls into places.txt soon (need to test code for bugs first).
 
 ## Key differences from nanoboard
 * no js at all (yet), html/css only
@@ -139,8 +139,5 @@ mono pikoboard.exe -a
 rm -r database/some_unwanted_thread_hash
 rm -r html/some_unwnated_thread_hash
 ```
-* You can do same thing to the particular posts:
-```
-rm database/thread_hash/post_hash
-```
+* You can do same thing to the particular posts in database dir but they will show up in html anyway because html is refreshed within -a operation, so you need to refresh thread after removal of some posts, I will add ability to refresh particular threads.
 * Retranslating some post (and its images and files what's important) again (for example if you lost containers for it). Locate post file in database, copy to some txt file (post.txt is fine), you will see that it starts from hash (thread hash), add thread= to the beginning, add new line after hash, save. You have recreated your post.txt, now pass it to the pikoboard.exe and you will receive your container(s).
