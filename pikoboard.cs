@@ -318,18 +318,6 @@ namespace pikoboard {
     }
   }
 
-  static class html_ext {
-    public static string detect(this byte[] bytes, string hash, string rel) {
-      if (bytes.Length > 11)
-      if ((bytes[4] == 'J' && bytes[5] == 'F' && bytes[6] == 'I') ||
-          (bytes[0] == 137 && bytes[1] == 80 && bytes[2] == 78) ||
-          (bytes[0] == 'G' && bytes[1] == 'I' && bytes[2] == 'F') ||
-          (bytes[8] == 'W' && bytes[9] == 'E' && bytes[10] == 'B'))
-        return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'><img src='" + rel + app.files_dir + "/" + hash + "'></a>";
-      return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'>[file:"+hash+"]</a>";
-    }
-  }
-
   class css {
     public const string style = @"g { color: #888; font-style: italic; font-size: 75%; } 
 .post { background-color: #ddd; border: 1px solid #aaa; border-radius: .4em; margin: .4em 0; max-width: 600px; margin-right: auto; } 
@@ -356,6 +344,12 @@ spoiler:hover { background-color: #ddd; }
         return Regex.Match(post.message, ">>[a-f0-9]{32}").Value.Substring(2);
       return "";
     }
+    static string create_ref(bool image, string hash, string rel) {
+      if (image)
+        return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'><img src='" + rel + app.files_dir + "/" + hash + "'></a>";
+      else
+        return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'>[file:"+hash+"]</a>";
+    }
     static piko_post[] sort(piko_post[] posts) {
       int max = 100000;
       for (int i = 0; i < posts.Length; i++) {
@@ -378,14 +372,9 @@ spoiler:hover { background-color: #ddd; }
       msg = msg.Replace("<", "&lt;");
       msg = msg.Replace(">", "&gt;");
       msg = msg.Replace("\n", "<br/>");
-      var refs = Regex.Matches(msg, "\\[ref=[a-f0-9]{32}\\]");
+      var refs = Regex.Matches(msg, "\\[(ref|raw)=[a-f0-9]{32}\\]");
       foreach (Match r in refs) {
-        var hash = r.Value.Substring(5, 32);
-        if (File.Exists(app.files_dir + app.slash + hash)) {
-          var bytes = utils.read(app.files_dir + app.slash + hash);
-          msg = msg.Replace(r.Value, bytes.detect(hash, rel));
-        } else
-          msg = msg.Replace(r.Value, "<a title='Was not present at page generation time.' href='"+ rel + app.files_dir + "/" + hash +"'>[not found:" + hash + "]</a>");
+        msg = msg.Replace(r.Value, create_ref(r.Value.StartsWith("[ref"), r.Value.Substring(5, 32), rel));
       }
       var thread_links = Regex.Matches(msg, "&gt;&gt;&gt;[a-f0-9]{32}");
       foreach (Match m in thread_links) {
@@ -536,7 +525,7 @@ spoiler:hover { background-color: #ddd; }
         File.WriteAllText(posttxt, 
           "thread=enter hash of thread here or just leave thread= for new thread\r\n" +
           "[ref=" + hash + "]\r\n" +
-          "put your message here, limit is " + max_post_size / 1000 + "k chars.");
+          "change ref to raw to link file not image, put your message here, limit is " + max_post_size / 1000 + "k chars.");
         utils.write(files_dir + slash + hash, bytes);
       }
     }
