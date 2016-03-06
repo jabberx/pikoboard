@@ -1,2 +1,2 @@
 # pikoboard
-pikoboard if fat-free nanoboard
+pikoboard if fat-free nanoboard (distributed forum)
