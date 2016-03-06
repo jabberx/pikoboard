@@ -325,7 +325,10 @@ namespace pikoboard {
 body { background: #eee; font-size: 14px; font-family: Helvetica; } 
 textarea { width: 300px; height: 100px; font-size: 12px; } 
 a { text-decoration: none; color: darkorange; } 
-img { max-width: 150px; } 
+img { max-width: 150px; transition: max-width 1s ease-in-out; -moz-transition: max-width 1s ease-in-out; -webkit-transition: max-width 1s ease-in-out; } 
+img:hover { max-width: 100%; transition: max-width 1s ease-in-out; -moz-transition: max-width 1s ease-in-out; -webkit-transition: max-width 1s ease-in-out; }
+img:target { max-width: 100%; }
+.post:target { border: 1px dashed #bbb; background-color: #fed; }
 a:hover { color: salmon; } 
 spoiler { background-color: #000; } 
 spoiler:hover { background-color: #ddd; } 
@@ -346,7 +349,7 @@ spoiler:hover { background-color: #ddd; }
     }
     static string create_ref(bool image, string hash, string rel) {
       if (image)
-        return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'><img src='" + rel + app.files_dir + "/" + hash + "'></a>";
+        return "<img src='" + rel + app.files_dir + "/" + hash + "'>";
       else
         return "<a target=_blank href='" + rel + app.files_dir + "/" + hash + "'>[file:"+hash+"]</a>";
     }
