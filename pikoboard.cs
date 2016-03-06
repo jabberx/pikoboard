@@ -321,7 +321,7 @@ namespace pikoboard {
   static class html_ext {
     public static string detect(this byte[] bytes, string hash, string rel) {
       if (bytes.Length > 11)
-      if ((bytes[0] == 'J' && bytes[1] == 'F' && bytes[2] == 'I') ||
+      if ((bytes[4] == 'J' && bytes[5] == 'F' && bytes[6] == 'I') ||
           (bytes[0] == 137 && bytes[1] == 80 && bytes[2] == 78) ||
           (bytes[0] == 'G' && bytes[1] == 'I' && bytes[2] == 'F') ||
           (bytes[8] == 'W' && bytes[9] == 'E' && bytes[10] == 'B'))
