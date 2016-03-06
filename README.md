@@ -127,3 +127,4 @@ rm -r html/some_unwnated_thread_hash
 ```
 rm database/thread_hash/post_hash
 ```
+* Retranslating some post (and its images and files what's important) again (for example if you lost containers for it). Locate post file in database, copy to some txt file (post.txt is fine), you will see that it starts from hash (thread hash), add thread= to the beginning, add new line after hash, save. You have recreated your post.txt, now pass it to the pikoboard.exe and you will receive your container(s).
