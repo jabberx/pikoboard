@@ -375,7 +375,6 @@ spoiler:hover { background-color: #ddd; }
       return "<div id='" + p.hash + "' class='post'><div class='post-inner'><g>" + p.hash + "</g><br/>" + format(p.message) + "</div></div>";
     }
     public static string format(string msg, string rel = "../") {
-      Console.WriteLine(msg);
       msg = msg.Replace("<", "&lt;");
       msg = msg.Replace(">", "&gt;");
       msg = msg.Replace("\n", "<br/>");
@@ -404,7 +403,6 @@ spoiler:hover { background-color: #ddd; }
       msg = msg.Replace("[/spoiler]", "</spoiler>");
       msg = msg.Replace("[sp]", "<spoiler>");
       msg = msg.Replace("[/sp]", "</spoiler>");
-      Console.WriteLine(msg);
       return msg;
     }
     public static void refresh(string thread) {
