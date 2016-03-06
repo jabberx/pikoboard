@@ -469,17 +469,27 @@ spoiler:hover { background-color: #ddd; }
       if (list.Count > 0) utils.random_pack(list, prefix + (++index) + ".jpg");
     }
     public static void Main(string[] args) {
-      new[]{styles_dir, containers_dir, download_dir, files_dir, db_dir, upload_dir, html_dir}.ToList().ForEach(utils.mkdir);
-      if (!File.Exists(styles_dir + slash + pikocss))
-        utils.write(styles_dir + slash + pikocss, css.style.bytes());
+      new[]{ styles_dir, containers_dir, download_dir, files_dir, db_dir, upload_dir, html_dir }.ToList().ForEach(utils.mkdir);
+      if (!File.Exists(styles_dir + slash + pikocss)) utils.write(styles_dir + slash + pikocss, css.style.bytes());
       if (args.Length == 0) {
         Console.WriteLine("pikoboard -a    collect jpegs from places.txt urls");
+        Console.WriteLine("pikoboard -r hash    refresh html of some thread");
+        Console.WriteLine("pikoboard -ra  refresh html of all threads (warning may be long operation)");
         Console.WriteLine("pikoboard file_with_post.txt    create container(s) from thread of this post and its file(s)");
         Console.WriteLine("   /" + containers_dir + " should have one or more jpegs");
         Console.WriteLine("   result will be in /" + upload_dir);
         Console.WriteLine("pikoboard any_file   create post template with this file referenced");
         Console.WriteLine("pikoboard       create template of post - post.txt and show this help");
         File.WriteAllText(posttxt, "thread=\r\nmessage");
+        return;
+      }
+      if (args.Length == 2 && args[0] == "-r") {
+        var hash = args[1];
+        html.refresh(hash);
+        return;
+      }
+      if (args.Length == 1 && args[0] == "-ra") {
+        Directory.GetDirectories(db_dir).ToList().ForEach(hash => html.refresh(hash));
         return;
       }
       if (args.Length == 1 && args[0] == "-a") {
