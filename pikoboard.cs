@@ -309,6 +309,7 @@ namespace pikoboard {
     public static byte[] extract(string input) {
       var bytes = utils.read(input);
       int len = BitConverter.ToInt32(bytes, bytes.Length - 4);
+      if (len >= bytes.Length) return null;
       var res = new byte[len];
       for (int i = bytes.Length - len - 4; i < bytes.Length - 4; i++) {
         res[i - (bytes.Length - len - 4)] = bytes[i];
