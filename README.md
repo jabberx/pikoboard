@@ -71,6 +71,7 @@ cd..3f
   ––––––––––––––––––––––
 ```
 So having specialized threads like "Categories" and "/b/" first you create some thread, then you mention it in "/b/" thread using >>>. If you need to create new category, you create thread with text "/bo/" and mention it's hash in "Categories" thread. But again all such categorisation will be useful when there will be lot of threads, for the beginning it's not neccessary.
+Note that >>>hash will show up as [hash], >>hash will look just like >>hash.
 
 ## How to build
 * Press 'Download Zip' button
