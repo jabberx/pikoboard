@@ -202,9 +202,11 @@ namespace pikoboard {
         bool is_post = bytes[i] == 'P';
         i += 1;
         int len = BitConverter.ToInt32(bytes, i);
+        if (len < 0 || i + len > bytes.Length) return new piko_entry[0];
         i += 4;
         var slice = new byte[len];
         for (int x = 0; x < len; x++) slice[x] = bytes[i + x];
+        i += len - 1;
         if (is_post) {
           var content = slice.utf8();
           if (content.Length <= app.max_post_size && Regex.IsMatch(content, "^[a-f0-9]{32}.*"))
@@ -309,7 +311,7 @@ namespace pikoboard {
     public static byte[] extract(string input) {
       var bytes = utils.read(input);
       int len = BitConverter.ToInt32(bytes, bytes.Length - 4);
-      if (len >= bytes.Length || len < 0) return null;
+      if (len >= bytes.Length - 4 || len < 0) return null;
       var res = new byte[len];
       for (int i = bytes.Length - len - 4; i < bytes.Length - 4; i++) {
         res[i - (bytes.Length - len - 4)] = bytes[i];
