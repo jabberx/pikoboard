@@ -15,7 +15,7 @@ Now I see that nanoboard is back but damaged, cursed and fucked up. I want to re
 
 To be honest I borrowed some code from Nanoboard (aggregator - named it crawler, nano.css file).
 
-This repo holds a simple tool with simple responsibilities. It's not so 'cool' as present nanoboard 'clients' but at least you understand what's going on underneath. Many operations can be more automatized but that is not so important at such early stage. It is as small as possible and yet brings pikoboard to the life and makes it fully usable. I will add bootstrap thread urls into places.txt soon (need to test code for bugs first).
+This repo holds a simple tool with simple responsibilities. It's not so 'cool' as present nanoboard 'clients' but at least you understand what's going on underneath. You can even play with this tool solely from your console. Many operations can be more automatized but that is not so important at such early stage. You can automatize it by yourself if you're experienced enough with shell scripts (or you can add some javascript if you like). It is as small as possible and yet brings pikoboard to the life and makes it fully usable. I will add bootstrap thread urls into places.txt soon (need to test code for bugs first).
 
 ## Key differences from nanoboard
 * no js at all (yet), html/css only
