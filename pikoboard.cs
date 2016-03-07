@@ -505,11 +505,12 @@ spoiler:hover { background-color: #ddd; }
           foreach (var e in entries) {
             if (e is piko_post) {
               var pp = e as piko_post;
-              utils.mkdir(db_dir + slash + pp.thread);
-              var file = db_dir + slash + pp.thread + slash + pp.hash;
+              var thread = pp.thread==new string('0',32)?pp.hash:pp.thread;
+              utils.mkdir(db_dir + slash + thread);
+              var file = db_dir + slash + thread + slash + pp.hash;
               if (File.Exists(file)) continue;
               utils.write(file, pp.serialized);
-              to_upd.Add(pp.thread);
+              to_upd.Add(thread);
               fresh.Add(pp.thread + pp.hash + pp.message);
             } else if (e is piko_file) {
               var pf = e as piko_file;
