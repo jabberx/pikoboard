@@ -154,7 +154,6 @@ namespace pikoboard {
         }
       };
       pending += 1;
-      address = address.Replace("2ch.hk", "m2-ch.ru");
       Console.WriteLine("Starting download: " + address);
       client.DownloadDataAsync(new Uri(address));
     }
@@ -358,6 +357,15 @@ spoiler:hover { background-color: #ddd; }
     static piko_post[] sort(piko_post[] posts) {
       int max = 100000;
       for (int i = 0; i < posts.Length; i++) {
+        if (posts[i].thread == new string('0', 32) && i > 0) {
+          var root = posts[i];
+          var newarr = posts.ToList();
+          newarr.Remove(root);
+          newarr.Insert(0, root);
+          posts = newarr.ToArray();
+          i = -1;
+          continue;
+        }
         if (posts.index_of(posts[i].first_ref()) > i) {
           if (max-- <= 0) continue;
           var wrong = posts[i];
@@ -365,13 +373,16 @@ spoiler:hover { background-color: #ddd; }
           newarr.Remove(wrong);
           newarr.Insert(newarr.ToArray().index_of(wrong.first_ref()) + 1, wrong);
           posts = newarr.ToArray();
-          i = 0;
+          i = -1;
         }
       }
       return posts;
     }
     public static string wrap_post(piko_post p) {
       return "<div id='" + p.hash + "' class='post'><div class='post-inner'><g>" + p.hash + "</g><br/>" + format(p.message) + "</div></div>";
+    }
+    public static string wrap_post_upd(piko_post p) {
+      return "<div id='" + p.hash + "' class='post'><div class='post-inner'><a href='html/"+((p.thread==new string('0',32))?p.hash:p.thread)+".html#"+p.hash+"'>" + p.hash + "</a><br/>" + format(p.message, "") + "</div></div>";
     }
     public static string format(string msg, string rel = "../") {
       msg = msg.Replace("<", "&lt;");
@@ -525,7 +536,7 @@ spoiler:hover { background-color: #ddd; }
         sb.Append(html.head.Replace("../",""));
         sb.Append("<body>");
         sb.Append(html.wrap_post(new piko_post(new string('0', 32) + "Recently recevied posts:")));
-        foreach (var f in fresh) sb.Append(html.wrap_post(new piko_post { thread = f.Substring(0, 32), message = f.Substring(64) }));
+        foreach (var f in fresh) sb.Append(html.wrap_post_upd(new piko_post { thread = f.Substring(0, 32), message = f.Substring(64) }));
         sb.Append("</body></html>");
         utils.write("updates_" + DateTime.UtcNow.ToFileTimeUtc().ToString("x") + ".html", sb.ToString().bytes());
         Console.WriteLine("Cleaning up...");
