@@ -382,7 +382,7 @@ spoiler:hover { background-color: #ddd; }
       var thread_links = Regex.Matches(msg, "&gt;&gt;&gt;[a-f0-9]{32}");
       foreach (Match m in thread_links) {
         var hash = m.Value.Substring(12);
-        msg = msg.Replace(m.Value, "<a href='" + hash + ".html'>" + m.Value + "</a>");
+        msg = msg.Replace(m.Value, "<a href='" + hash + ".html'>[" + m.Value.Substring(12) + "]</a>");
       }
       var post_links = Regex.Matches(msg, "&gt;&gt;[a-f0-9]{32}");
       foreach (Match m in post_links) {
