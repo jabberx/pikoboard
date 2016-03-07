@@ -1,0 +1,2 @@
+# put urls to threads here each at new line
+http://m2-ch.ru/crypt/res/19695.html
