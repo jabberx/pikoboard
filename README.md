@@ -149,6 +149,7 @@ rm -r database/thread_hash/unwanted_post_hash
 pikoboard -r thread_hash
 ```
 * Retranslating some post (and its images and files what's important) again (for example if you lost containers for it). Locate post file in database, copy to some txt file (post.txt is fine), you will see that it starts from hash (thread hash), add thread= to the beginning, add new line after hash, save. You have recreated your post.txt, now pass it to the pikoboard.exe and you will receive your container(s).
+* Retranslating by using direct file transmission. You jsut share folders from your database folder. Each folder represents a thread. When you update your database with some new folder you can do pikoboard.exe -r folder-name to recreate html for that thread or pikoboard.exe -ra to recreate html files for all folders
 
 ## Workflow (for people new to nanoboard-like stuff)
 * using the tool you create zip-jpegs with your post and its files inside, whole thread also included (files from other people up to 1536 bytes also included)
